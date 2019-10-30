@@ -23,8 +23,8 @@ deploy:
   provider: releases
   api_key: ${GITHUB_TOKEN}
   file:
-    - build/underblog-*.zip
-    - build/underblog-*.tar.gz
+    - release/underblog-*.zip
+    - release/underblog-*.tar.gz
   on:
     tags: true
   file_glob: true
