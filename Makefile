@@ -35,5 +35,5 @@ move:
 .PHONY: release
 release:
 	-mkdir -p $(BUILD_DIR)
-	GOOS=$(GOOS) GOARCH=$(GOARCH) GO111MODULE=on CGO_ENABLED=0 go build -o $(BUILD_DIR)/$(NAME)$(ext) ./app/main.go
+	GOOS=$(GOOS) GOARCH=$(GOARCH) GO111MODULE=on CGO_ENABLED=0 go build  -ldflags "-X main.revision=$(VERSION)" -o $(BUILD_DIR)/$(NAME)$(ext) ./app/main.go
 	cd release ; $(archiveCmd)

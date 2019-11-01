@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/freetonik/underblog/app/cmd"
-	"github.com/freetonik/underblog/app/internal"
 	"log"
 	"os"
 	"time"
+
+	"github.com/freetonik/underblog/app/cmd"
+	"github.com/freetonik/underblog/app/internal"
 )
 
-var revision = "0.2.2"
+var revision = "dev"
 
 func main() {
 	fmt.Printf("Underblog %s\n", revision)
