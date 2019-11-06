@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"gopkg.in/russross/blackfriday.v2"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -12,9 +11,12 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"gopkg.in/russross/blackfriday.v2"
 )
 
-func NewPost(filename string) Post {
+func NewPost(filename string, cats []string) Post {
+
 	// Get filename without extension
 	filenameBase := fNameWithoutExtension(filename)
 	verifyFilenameBaseFormat(filenameBase)
@@ -30,7 +32,11 @@ func NewPost(filename string) Post {
 	slug := filenameBase[11:]
 
 	// Get body from file
-	mdfile, err := os.Open("./markdown/" + filename)
+	subDir := ""
+	if len(cats) > 0 {
+		subDir = cats[0] + "/"
+	}
+	mdfile, err := os.Open("./markdown/" + subDir + filename)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -51,6 +57,7 @@ func NewPost(filename string) Post {
 		Body:  template.HTML(html),
 		Date:  date,
 		Slug:  slug,
+		Cats:  cats,
 	}
 
 	// Save file
@@ -64,6 +71,7 @@ type Post struct {
 	Body  template.HTML
 	Date  time.Time
 	Slug  string
+	Cats  []string
 }
 
 func (post *Post) createFile() {
